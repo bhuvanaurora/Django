@@ -1,15 +1,26 @@
-<!DOCYTPE html>
+{% extends 'rango/base.html/' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body_block %}
     
-    {% load static %}
+    <div>
+        <h1>I say</h1>
+        hello {{ user.username }} <br />
+        {% if categories %}
+            <ul>
+                {% for category in categories %}
+                    <li><a href="/rango/category/{{ category.url }}/">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no categories present</strong>
+        {% endif %}
+        
+        {% if user.is_authenticated %}
+        <a href='/rango/add_category/'>Add a new category</a><br />
+        {% endif %}
     
-    <html>
-        <head>
-            <title>Rango</title>
-        </head>
-        <body>
-            <h1>I say</h1>
-            hello world <strong>{{ boldmessage }}</strong><br />
-            <a href='/rango/about'>About</a><br/>
-            <img src="{% static "rango.jpg" %}" alt="Image" />
-        </body>
-    </html>
+        You have visited the site {{ visits }} time(s)
+    </div>
+{% endblock %}
